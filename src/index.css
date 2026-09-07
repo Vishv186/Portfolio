@@ -1,0 +1,223 @@
+@import 'tailwindcss';
+
+@font-face {
+    font-family: 'Fraunces';
+    font-display: swap;
+    src: url('/fonts/Fraunces.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'GeneralSans';
+    font-display: swap;
+    src: '/home/jkyber/Downloads/favicon.png' url('/fonts/GeneralSans.ttf')
+        format('truetype');
+}
+
+:root {
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+
+    --background: #f3f4f0;
+    --sky: #f3f4f0;
+    --surface: rgba(255, 255, 251, 0.2);
+    --primary: #426b4b;
+    --accent: #8b423c;
+    --text: #1e1a14;
+    --sun-moon-glow: #fffbef;
+    --fire-glow: transparent;
+
+    --nav-height: 3.5rem;
+}
+
+:root.dark {
+    --background: #0b1522;
+    --sky: #0b1522;
+    --surface: rgba(15, 29, 46, 0);
+    --primary: #36af8d;
+    --accent: #ff8e4f;
+    --accent-highlight: hsl(23, 59%, 20%);
+    --text: #e8edf1;
+    --sun-moon-glow: #e8edf550;
+    --fire-glow: rgba(217, 90, 22, 0.5);
+
+    body {
+        background-image: none;
+        background-color: var(--background);
+    }
+}
+
+body {
+    position: relative;
+    margin: auto;
+    box-sizing: border-box;
+
+    background-image: linear-gradient(
+        to bottom,
+        var(--background) 40%,
+        var(--sky)
+    );
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-surface: var(--surface);
+    --color-primary: var(--primary);
+    --color-accent: var(--accent);
+    --color-accent-highlight: var(--accent-highlight);
+    --color-text: var(--text);
+    --color-sun-moon-glow: var(--sun-moon-glow);
+
+    --spacing-nav-height: var(--nav-height);
+    --spacing-section-gap: 2rem;
+    --spacing-max-body-w: 80rem;
+
+    --breakpoint-xs: 30rem;
+    --breakpoint-2xs: 25rem;
+    --text-2xs: 0.6rem;
+
+    --font-body: 'GeneralSans', sans-serif;
+    --font-heading: 'Fraunces', sans-serif;
+}
+
+#root {
+    width: 100%;
+    position: relative;
+    overflow: clip;
+}
+
+@custom-variant @stuck-top {
+    @supports (container-type: scroll-state) {
+        @container scroll-state(stuck: top) {
+            @slot;
+        }
+    }
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes fire-flicker {
+    0% {
+        opacity: 1;
+    }
+    3% {
+        opacity: 1;
+    }
+    9% {
+        opacity: 0.55;
+    }
+    13% {
+        opacity: 0.55;
+    }
+    22% {
+        opacity: 1;
+    }
+    27% {
+        opacity: 1;
+    }
+    35% {
+        opacity: 0.4;
+    }
+    40% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.95;
+    }
+    55% {
+        opacity: 0.95;
+    }
+    64% {
+        opacity: 0.35;
+    }
+    70% {
+        opacity: 0.35;
+    }
+    80% {
+        opacity: 1;
+    }
+    86% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fire-glow {
+    box-shadow: inset 0 -12px 18px -18px var(--fire-glow);
+    animation: fire-flicker 4s ease-in-out infinite;
+    will-change: 'opacity';
+}
+
+.moon-glow {
+    box-shadow: inset 0 12px 18px -18px var(--sun-moon-glow);
+}
+
+.radial-exp {
+    background-image: radial-gradient(
+        circle closest-side,
+        rgb(from var(--sun-moon-glow) r g b / 1) 0%,
+        rgb(from var(--sun-moon-glow) r g b / 0.63) 6%,
+        rgb(from var(--sun-moon-glow) r g b / 0.42) 12%,
+        rgb(from var(--sun-moon-glow) r g b / 0.29) 19%,
+        rgb(from var(--sun-moon-glow) r g b / 0.2) 27%,
+        rgb(from var(--sun-moon-glow) r g b / 0.135) 36%,
+        rgb(from var(--sun-moon-glow) r g b / 0.09) 46%,
+        rgb(from var(--sun-moon-glow) r g b / 0.06) 57%,
+        rgb(from var(--sun-moon-glow) r g b / 0.038) 68%,
+        rgb(from var(--sun-moon-glow) r g b / 0.024) 78%,
+        rgb(from var(--sun-moon-glow) r g b / 0.015) 87%,
+        rgb(from var(--sun-moon-glow) r g b / 0.007) 94%,
+        rgb(from var(--sun-moon-glow) r g b / 0) 100%
+    );
+    filter: blur(1rem);
+}
+
+.btn-hover {
+    transition: opacity 50ms linear;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.no-outline-chart svg:focus,
+.no-outline-chart * :focus {
+    outline: none;
+}
+
+.recharts-tooltip-wrapper {
+    transition: transform 0.1s ease-out !important;
+}
+
+@utility custom-tag {
+    @apply rounded-md px-2 py-0.5 font-semibold text-xs pt-1 bg-transparent tracking-wide;
+}
+
+@utility surface-styles {
+    @apply shadow-[-0.0rem_0.2rem_0.5rem_rgba(0,0,0,0.15)] ring-1 ring-text/20 bg-surface rounded-md;
+}
+
+@utility item-hover {
+    @apply hover:opacity-60 transition-opacity ease-out duration-100;
+}
+
+@utility cta-button {
+    @apply w-fit h-full relative overflow-hidden ring-1 ring-primary px-3 py-2 rounded-md text-background text-base font-medium cursor-pointer z-1 item-hover;
+}
+
+section {
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+    gap: 1.5rem;
+    margin-bottom: 14rem;
+
+    &:first-child {
+        margin-bottom: 2rem;
+    }
+}

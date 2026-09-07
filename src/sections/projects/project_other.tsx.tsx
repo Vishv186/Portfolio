@@ -1,0 +1,76 @@
+import Glow from '../../components/glow';
+import GithubSVG from '../../components/svg/github.svg';
+import WebsiteSVG from '../../components/svg/website.svg';
+import type { ProjectOther } from '../../types/projects.types';
+
+export default function ProjectOther({ project }: { project: ProjectOther }) {
+    return (
+        <div
+            data-name='project-other'
+            className='w-full flex-[1_1_max-content] relative surface-styles'
+        >
+            <Glow />
+
+            <div
+                data-name='project-contents'
+                className='relative w-full h-full flex flex-col gap-1 px-4 py-2 pt-3 justify-between z-1'
+            >
+                <div
+                    data-name='top'
+                    className='flex flex-row justify-between gap-4'
+                >
+                    <div
+                        data-name='tag-container'
+                        className='w-full flex flex-col justify-start gap-1'
+                    >
+                        <h5
+                            className={`custom-tag bg-accent/15 text-accent w-fit`}
+                        >
+                            {project.tag}
+                        </h5>
+
+                        {project?.inProgress ? (
+                            <h5
+                                className={`custom-tag bg-primary/10 text-primary text-nowrap`}
+                            >
+                                In Progress
+                            </h5>
+                        ) : null}
+                    </div>
+
+                    <h3 className='w-full text-lg font-light text-text font-heading text-center text-wrap sm:text-nowrap'>
+                        {project.title}
+                    </h3>
+
+                    <div
+                        data-name='link-container'
+                        className='w-full h-4 flex flex-row justify-end gap-3'
+                    >
+                        <a
+                            className='item-hover'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            href={project.github}
+                            aria-label={`View ${project.title} code in github`}
+                        >
+                            <GithubSVG />
+                        </a>
+                        <a
+                            className='item-hover'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            href={project.site ?? project.github}
+                            aria-label={`Visit ${project.title} live site`}
+                        >
+                            <WebsiteSVG />
+                        </a>
+                    </div>
+                </div>
+
+                <h5 className='text-sm font-medium text-text/90 text-center'>
+                    {project.description}
+                </h5>
+            </div>
+        </div>
+    );
+}
