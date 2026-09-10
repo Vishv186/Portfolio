@@ -33,11 +33,14 @@ export default function Hero() {
                             View Projects
                         </button>
                     </a>
-                    <button
+                    <a
+                        href='https://drive.google.com/file/d/1OmszHmvfEv3_WXnyw5psZ4owSRT3kLhu/view?usp=sharing'
+                        target='_blank'
+                        rel='noopener noreferrer'
                         className={`cta-button ${darkMode ? 'text-text ring-text' : 'text-primary'}`}
                     >
-                        Download Resume
-                    </button>
+                        View Resume
+                    </a>
                 </div>
             </div>
         </section>
